@@ -1,5 +1,6 @@
-import Head from 'next/head';
+'use client'
 import Link from 'next/link';
+import { useState } from 'react';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
@@ -10,13 +11,14 @@ import Cards from "./components/Cards"
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 export default function FerryOperators() {
+
+    const [isFiltersVisible, setFiltersVisible] = useState(true);
+  
+    const toggleFiltersVisibility = () => {
+      setFiltersVisible(!isFiltersVisible);
+    };
   return (
     <div>
-      <Head>
-        <title>Ferryengine</title>
-        <meta name="description" content="List of ferry operators" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
       <header className="bg-blue-500 text-white py-4">
         <div className="container mx-auto flex justify-between items-center">
@@ -73,9 +75,10 @@ export default function FerryOperators() {
 
           <div>
             <div className="flex mt-6 space-x-4">
+            {isFiltersVisible && (
               <div className="hidden lg:block w-[250px] h-[280px] p-4 border rounded border-gray-300">
                 <div className="flex justify-between item-center font-bold">
-                  <h2>Filters</h2> <CloseOutlinedIcon />
+                  <h2>Filters</h2> <CloseOutlinedIcon className="pointer cursor-pointer" onClick={toggleFiltersVisibility}/>
                 </div>
 
                 <h2>operating in </h2>
@@ -98,6 +101,7 @@ export default function FerryOperators() {
                   </label>
                 </div>
               </div>
+                    )}
               <Cards />
             </div>
           </div>
